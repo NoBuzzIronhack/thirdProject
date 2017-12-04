@@ -11,6 +11,8 @@ const MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
 const publication = require('./routes/publication');
 const index = require('./routes/index');
+const scrap = require('./routes/scrap');
+
 const app = express();
 
 mongoose.connect(process.env.DBURL).then(() => {
@@ -39,6 +41,8 @@ app.use(session({
 
 app.use('/', index);
 app.use('/publication', publication);
+app.use('/', scrap);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
