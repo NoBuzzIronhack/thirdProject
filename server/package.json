@@ -27,6 +27,8 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "serve-favicon": "~2.4.5",
-    "x-ray": "^2.3.2"
+    "with-query": "^1.0.2",
+    "x-ray": "^2.3.2",
+    "youtube-search": "^1.0.10"
   }
 }
