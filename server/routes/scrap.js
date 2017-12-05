@@ -136,15 +136,19 @@ router.post('/videos/detail', (req,res,render) =>{
 
 router.post ('/article', (req, res, render) => {
   let url = req.query.url;
-  request(search)
+  request(url)
   .then (function (body){
     let $ = cheerio.load(body);
     let titleTag = $('h1');
     let imageTag = $('img');
+    // let imageList = Array.from($('img'));
+    // imageList.forEach(image => {
+    //   console.log(image);
+    })
     let title = titleTag[0].children[0].data || titleTag[1].children[0].data || '';
-    console.log(imageTag);
+    console.log(url);
   })
-})
+// })
 
 
 
