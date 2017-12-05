@@ -35,19 +35,30 @@ router.post('/books/detail', (req, res, next) => {
   const publication = new Publication({
     title: req.body.title,
     image: req.body.image,
+    author: req.body.author,
     rating: req.body.rating,
     link: "https://www.amazon.com/gp/product/" + req.body.link,
     category: "Book"
   })
 
-  publication.save()
-  .then(answer => {
-    res.status(200).json({'message':'publication guardada correctamente'})
+  Publication.findOne({ 'title': req.body.title }, (err, publication) => {
+    if (err) { return next(err) }
+    else if (publication) {
+      res.status(200).json({'message':'la publicacion ya existe'})
+      // aqui guardar relacion user/publicacion
+    }
+    else {
+      publication.save()
+      .then(answer => {
+        // aqui guardar relacion user/publicacion
+        res.status(200).json({'message':'publication guardada correctamente'})
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
   })
-  .catch(err => {
-    console.log(err)
-  })
-})
+});
 
 router.get('/books', (req, res, next) => {
   let query = req.query.q;
@@ -59,7 +70,6 @@ router.get('/books', (req, res, next) => {
     let link = $('a[itemprop="url"]')
     let bookResult = [];
     for(i=0; i<name.length; i++) {
-      // console.log(name[i].children[0].data + ' by ' + author[i].children[0].data + link[0].attribs.href);
       let bookObj = {title:name[i].children[0].data,
       author: author[i].children[0].data,
       link: link[0].attribs.href}
@@ -74,31 +84,67 @@ router.get('/books', (req, res, next) => {
 
 
 
+//Get Videos
+router.get('/videos', (req, res, render) => {
+   let query = req.query.q;
+   var opts = {
+     maxResults: 10,
+     key: 'AIzaSyBYtE6_mqYZKJPLuj7fz9oGtLoJJcebDXs'
+   };
+   search(query, opts, function(err, results) {
+     if(err) return console.log(err);
+     let videoResults = results.map(video => {
+       return {
+         title: video.title,
+          link: video.link,
+        image: video.thumbnails.default.url,
+        createdAt: video.publishedAt
+      }
+     })
+     res.status(200).json(videoResults)
+   });
+})
 
-// Get Videos
-//  router.get('/videos', (req, res, render )=>{
-//    let query = "ted"
-//    var opts = {
-//      maxResults: 10,
-//      key: 'AIzaSyBYtE6_mqYZKJPLuj7fz9oGtLoJJcebDXs'
-//    };
-//    search(query, opts, function(err, results) {
-//      if(err) return console.log(err);
-//
-//      console.dir(results);
-//    });
-// })
-//
-// router.get ('/article', (req, res, render) => {
-//   let search = "http://www.elmundo.es/madrid/2017/12/05/5a2680cf22601ddd378b4631.html";
-//   request(search)
-//   .then (function (body){
-//     let $ = cheerio.load(body);
-//     let title = $('h1');
-//     let image = $('img')
-//
-//   })
-// })
+router.post('/videos/detail', (req,res,render) =>{
+  const publication = new Publication({
+    title: req.body.title,
+    image: req.body.image,
+    link: req.body.link,
+    createdAt: req.body.publishedAt,
+    category: "Video"
+  })
+
+  Publication.findOne({ 'title': req.body.title }, (err, publication) => {
+    if (err) { return next(err) }
+    else if (publication) {
+      res.status(200).json({'message':'la publicacion ya existe'})
+      // aqui guardar relacion user/publicacion
+    }
+    else {
+      publication.save()
+      .then(answer => {
+        // aqui guardar relacion user/publicacion
+        res.status(200).json({'message':'publication guardada correctamente'})
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+  })
+});
+
+
+router.post ('/article', (req, res, render) => {
+  let url = req.query.url;
+  request(search)
+  .then (function (body){
+    let $ = cheerio.load(body);
+    let titleTag = $('h1');
+    let imageTag = $('img');
+    let title = titleTag[0].children[0].data || titleTag[1].children[0].data || '';
+    console.log(imageTag);
+  })
+})
 
 
 

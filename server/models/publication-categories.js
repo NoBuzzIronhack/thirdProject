@@ -1,6 +1,6 @@
 module.exports= [
 "Book",
-"Video Talk",
+"Video",
 "Documentarie",
 "Article",
 "Podcast"
