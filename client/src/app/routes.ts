@@ -9,6 +9,9 @@ const myRoutes: Routes =[
 {path: 'book-search', component: BookSearchComponent},
 // {path: 'book-detail', component: BookDetailComponent},
 // {path: 'profile', component: BookDetailComponent},
+
+//{path:'videos-search'},
+//{path: 'articles-search'}
 ];
 
 export{myRoutes};
