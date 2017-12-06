@@ -12,7 +12,10 @@ export class LoginFormComponent {
     login(username, password){
       this.auth.login(username,password).subscribe();
     }
-
+    signup(username, password){
+      console.log(username,password);
+      this.auth.signup(username,password).subscribe();
+    }
     logout() {
       this.auth.logout().subscribe();
     }

@@ -32,7 +32,7 @@ export class AuthService {
     return this.user;
   }
 
-  signup(username:string, password:string) {
+  signup(username:string, password) {
     return this.http.post(`${BASE_URL}/signup`, {username, password}, this.options)
       .map(res => res.json())
       .map(user => this.handleUser(user))

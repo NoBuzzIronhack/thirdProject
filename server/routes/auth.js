@@ -18,7 +18,6 @@ authRoutes.post('/signup', (req, res, next) => {
       res.status(400).json({ message: 'The username already exists' });
       return;
     }
-
     const salt     = bcrypt.genSaltSync(10);
     const hashPass = bcrypt.hashSync(password, salt);
 
@@ -40,7 +39,6 @@ authRoutes.post('/signup', (req, res, next) => {
     });
   })
   .catch(e => {
-      console.log(e)
       res.status(500).json({ message: 'Something went wrong' });
   });
 });
