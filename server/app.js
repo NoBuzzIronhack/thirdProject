@@ -12,12 +12,24 @@ const cors = require('cors');
 const publication = require('./routes/publication');
 const index = require('./routes/index');
 const scrap = require('./routes/scrap');
-
+const auth = require('./routes/auth');
 const app = express();
 
 mongoose.connect(process.env.DBURL).then(() => {
   console.log(`connected to DB ${process.env.DBURL}`);
 });
+//configuracion con el front !
+// var whitelist = [
+//     'http://localhost:4200',
+// ];
+// var corsOptions = {
+//     origin: function(origin, callback){
+//         var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+//         callback(null, originIsWhitelisted);
+//     },
+//     credentials: true
+// };
+// app.use(cors(corsOptions));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,10 +51,12 @@ app.use(session({
   store: new MongoStore( { mongooseConnection: mongoose.connection })
 }))
 
+require('./passport')(app);
+
 app.use('/', index);
 app.use('/publication', publication);
 app.use('/', scrap);
-
+app.use('/api/auth', auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
