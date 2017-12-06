@@ -19,17 +19,17 @@ mongoose.connect(process.env.DBURL).then(() => {
   console.log(`connected to DB ${process.env.DBURL}`);
 });
 //configuracion con el front !
-// var whitelist = [
-//     'http://localhost:4200',
-// ];
-// var corsOptions = {
-//     origin: function(origin, callback){
-//         var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
-//         callback(null, originIsWhitelisted);
-//     },
-//     credentials: true
-// };
-// app.use(cors(corsOptions));
+var whitelist = [
+    'http://localhost:4200',
+];
+var corsOptions = {
+    origin: function(origin, callback){
+        var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+        callback(null, originIsWhitelisted);
+    },
+    credentials: true
+};
+app.use(cors(corsOptions));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
