@@ -1,5 +1,9 @@
+import { RouterModule, Routes } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import{AuthService} from '../../services/auth.service';
+import{AuthService} from '../services/auth.service';
+import { myRoutes } from '../routes';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CategoryComponent} from '../category/category.component';
 
 @Component({
   selector: 'app-login-form',
@@ -7,10 +11,15 @@ import{AuthService} from '../../services/auth.service';
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent {
-  constructor(private auth:AuthService) { }
+  constructor(
+    public router:Router,
+    private auth:AuthService,
+    public route:ActivatedRoute
+    ) { }
 
     login(username, password){
       this.auth.login(username,password).subscribe();
+      this.router.navigate(['categories']);
     }
     signup(username, password){
       console.log(username,password);

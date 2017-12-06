@@ -1,4 +1,4 @@
-<h1> Authentication Front </h1>
+<p> Authentication Front </p>
 <div *ngIf="!auth.user">
   <form>
     <h2> Login or Signup </h2>
@@ -15,6 +15,6 @@
 </div>
 
 <div *ngIf="auth.user">
-  <h2>Welcome {{auth.user.username}}</h2>
+  <!-- <h2>Welcome {{auth.user.username}}</h2> -->
   <a href="#" (click)="logout()">Logout {{auth.user.username}}</a>
 </div>
