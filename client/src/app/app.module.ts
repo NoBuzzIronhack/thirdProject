@@ -5,16 +5,14 @@ import { HttpModule } from '@angular/http';
 import { AuthService } from '../services/auth.service';
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from './login-form/login-form.component';
-import { ProfileComponent } from './profile/profile.component';
 import {RouterModule} from '@angular/router';
 import { myRoutes } from './routes';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginFormComponent,
-    ProfileComponent
-  ],
+    LoginFormComponent
+    ],
   imports: [
     BrowserModule,
     FormsModule,
