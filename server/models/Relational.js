@@ -1,0 +1,15 @@
+const mongoose = require('mongoose');
+const Schema   = mongoose.Schema;
+
+const relationalSchema = new Schema({
+  creator: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  publication: { type: Schema.Types.ObjectId, ref: 'Publication', required: true },
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
+});
+
+const Publication = mongoose.model('Publication', publicationSchema);
+module.exports = Publication;

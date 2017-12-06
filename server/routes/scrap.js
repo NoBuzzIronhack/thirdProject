@@ -8,7 +8,6 @@ const cheerio = require('cheerio');
 const search = require('youtube-search');
 
 
-
 router.get('/books/detail', (req, res, next) =>{
   let url = req.query.url;
   request('http://www.goodreads.com'+url)
@@ -82,10 +81,8 @@ router.get('/books', (req, res, next) => {
   })
 });
 
-
-
 //Get Videos
-router.get('/videos', (req, res, render) => {
+router.get('/video/youtube', (req, res, render) => {
    let query = req.query.q;
    var opts = {
      maxResults: 10,
@@ -105,7 +102,7 @@ router.get('/videos', (req, res, render) => {
    });
 })
 
-router.post('/videos/detail', (req,res,render) =>{
+router.post('/video/youtube/detail', (req,res,render) =>{
   const publication = new Publication({
     title: req.body.title,
     image: req.body.image,
@@ -133,24 +130,51 @@ router.post('/videos/detail', (req,res,render) =>{
   })
 });
 
-
-router.post ('/article', (req, res, render) => {
-  let url = req.query.url;
-  request(url)
-  .then (function (body){
-    let $ = cheerio.load(body);
-    let titleTag = $('h1');
-    let imageTag = $('img');
-    // let imageList = Array.from($('img'));
-    // imageList.forEach(image => {
-    //   console.log(image);
-    })
-    let title = titleTag[0].children[0].data || titleTag[1].children[0].data || '';
-    console.log(url);
+router.post('/publication', (req, res, render) => {
+  const url = `https://api.microlink.io?url=${req.query.url}`;
+  const publication = new Publication({
+    title: req.body.title,
+    image: req.body.image.url,
+    author: req.body.publisher,
+    link: req.body.url,
+    category: "Publication"
   })
-// })
+
+  Publication.findOne({ 'link': req.body.url }, (err, publication) => {
+    if (err) { return next(err) }
+    else if (publication) {
+      res.status(200).json({'message':'la publicacion ya existe'})
+      // aqui guardar relacion user/publicacion
+    }
+    else {
+      publication.save()
+      .then(answer => {
+        // aqui guardar relacion user/publicacion
+        res.status(200).json({'message':'publication guardada correctamente'})
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+  })
+});
 
 
-
+// router.post('/article', (req, res, render) => {
+//   let url = req.query.url;
+//   // let url = "http://www.wired.co.uk/article/best-startups-in-berlin-2017";
+//   console.log(url);
+//   request(url)
+//   .then (function (body){
+//     let $ = cheerio.load(body);
+//     let titleTag = $('h1');
+//     let imageTag = $('img');
+//     // let imageList = Array.from($('img'));
+//
+//     let title = titleTag[0].children[0].data || titleTag[1].children[0].data || '';
+//     let image = imageTag[3].currentSrc;
+//     console.log(title, image);
+//   })
+// });
 
 module.exports= router;
