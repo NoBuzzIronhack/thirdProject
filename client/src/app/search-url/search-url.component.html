@@ -1,0 +1,11 @@
+
+<h1>Paste any URL!</h1>
+<input placeholder="paste any URL" [(ngModel)]="queryPublic">
+<button (click)='searchPubli()' name="button">Search</button>
+
+<div *ngIf="myPubli" class= "">
+  <h1>{{ myPubli.title }}</h1>
+  <img src="{{ myPubli.image }}" alt="">  <br>
+  <a href="{{myPubli.link}}" target="_blank">See on {{ myPubli.author }}</a>
+  <button type="button" (click)='savePubli()'>Add to my profile</button>
+</div>
