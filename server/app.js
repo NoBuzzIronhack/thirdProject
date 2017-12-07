@@ -13,6 +13,7 @@ const publication = require('./routes/publication');
 const index = require('./routes/index');
 const scrap = require('./routes/scrap');
 const auth = require('./routes/auth');
+const profile = require('./routes/profile');
 const app = express();
 
 mongoose.connect(process.env.DBURL).then(() => {
@@ -56,6 +57,7 @@ require('./passport')(app);
 app.use('/', index);
 app.use('/publication', publication);
 app.use('/', scrap);
+app.use('/', profile);
 app.use('/api/auth', auth);
 
 // catch 404 and forward to error handler
