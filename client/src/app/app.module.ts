@@ -12,10 +12,11 @@ import { SearchComponent } from './search/search.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { ProfileComponent } from './profile/profile.component';
 import {SearchService} from './services/search.service';
+import { VideoDetailComponent } from './video-detail/video-detail.component';
+import {VideoSearchService} from './services/video-search.service';
 import { SearchUrlComponent } from './search-url/search-url.component'
 import { searchUrlService } from './services/searchUrl.service';
 import { ProfileService } from './services/profile.service';
-
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ProfileService } from './services/profile.service';
     SearchComponent,
     BookDetailComponent,
     ProfileComponent,
+    VideoDetailComponent
     SearchUrlComponent
     ],
   imports: [
@@ -33,7 +35,7 @@ import { ProfileService } from './services/profile.service';
     HttpModule,
     RouterModule.forRoot(myRoutes)
   ],
-  providers: [AuthService, SearchService, searchUrlService, ProfileService],
+  providers: [AuthService, SearchService, searchUrlService, ProfileService, VideoSearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

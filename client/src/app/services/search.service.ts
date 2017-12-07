@@ -14,6 +14,7 @@ export class SearchService {
     withCredentials:true
   }
   constructor(private http: Http) { }
+
     searchBookList(querybook):Observable<any>{
       return this.http.get(`${BASEURL}?q=${querybook}`, this.options)
                       .map(res => res.json());
@@ -27,4 +28,6 @@ export class SearchService {
       return this.http.post(`${BASEURL}/detail/`, book, this.options)
       .map(res =>res.json());
     }
-}
+
+
+    }
