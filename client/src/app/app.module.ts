@@ -11,7 +11,10 @@ import { CategoryComponent } from './category/category.component';
 import { SearchComponent } from './search/search.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { ProfileComponent } from './profile/profile.component';
-import {SearchService} from './services/search.service'
+import {SearchService} from './services/search.service';
+import { SearchUrlComponent } from './search-url/search-url.component'
+import { searchUrlService } from './services/searchUrl.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +22,8 @@ import {SearchService} from './services/search.service'
     CategoryComponent,
     SearchComponent,
     BookDetailComponent,
-    ProfileComponent
+    ProfileComponent,
+    SearchUrlComponent
     ],
   imports: [
     BrowserModule,
@@ -27,7 +31,7 @@ import {SearchService} from './services/search.service'
     HttpModule,
     RouterModule.forRoot(myRoutes)
   ],
-  providers: [AuthService, SearchService],
+  providers: [AuthService, SearchService, searchUrlService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
