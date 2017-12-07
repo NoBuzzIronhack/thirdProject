@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { searchUrlService } from '../services/searchUrl.service'
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -11,22 +11,20 @@ import {ActivatedRoute} from '@angular/router';
 export class SearchUrlComponent implements OnInit {
 myPubli;
 queryPublic;
-  constructor( public route: ActivatedRoute, public UrlSearch: searchUrlService) { }
+  constructor( public route: ActivatedRoute, private router: Router, public UrlSearch: searchUrlService) { }
 
   ngOnInit() {}
 
 searchPubli(link){
   this.UrlSearch.pasteUrl(this.queryPublic).subscribe(publiUrl =>{
     this.myPubli = publiUrl;
-    console.log(this.myPubli);
   })
 }
 
 savePubli() {
-  this.UrlSearch.saveUrlPublication(this.queryPublic, this.myPubli)
-  .subscribe(response => console.log(response))
-
-  console.log("Saved!");
+  this.UrlSearch.saveUrlPublication(this.myPubli)
+  .subscribe(response => {
+    this.router.navigate(['/profile']);
+  });
 }
-
 }

@@ -14,6 +14,8 @@ import { ProfileComponent } from './profile/profile.component';
 import {SearchService} from './services/search.service';
 import { SearchUrlComponent } from './search-url/search-url.component'
 import { searchUrlService } from './services/searchUrl.service';
+import { ProfileService } from './services/profile.service';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import { searchUrlService } from './services/searchUrl.service';
     HttpModule,
     RouterModule.forRoot(myRoutes)
   ],
-  providers: [AuthService, SearchService, searchUrlService],
+  providers: [AuthService, SearchService, searchUrlService, ProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
