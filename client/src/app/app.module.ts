@@ -8,16 +8,16 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import {RouterModule} from '@angular/router';
 import { myRoutes } from './routes';
 import { CategoryComponent } from './category/category.component';
-import { BookSearchComponent } from './book-search/book-search.component';
+import { SearchComponent } from './search/search.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { ProfileComponent } from './profile/profile.component';
-import {BookSearchService} from './services/book-search.service'
+import {SearchService} from './services/search.service'
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
     CategoryComponent,
-    BookSearchComponent,
+    SearchComponent,
     BookDetailComponent,
     ProfileComponent
     ],
@@ -27,7 +27,7 @@ import {BookSearchService} from './services/book-search.service'
     HttpModule,
     RouterModule.forRoot(myRoutes)
   ],
-  providers: [AuthService, BookSearchService],
+  providers: [AuthService, SearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

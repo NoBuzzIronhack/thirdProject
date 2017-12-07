@@ -6,8 +6,9 @@ import {BookSearchService} from '../services/book-search.service'
   templateUrl: './book-search.component.html',
   styleUrls: ['./book-search.component.css']
 })
-export class BookSearchComponent implements OnInit {
+export class SearchComponent implements OnInit {
   bookList = [];
+  videoList= [];
   constructor(public BookSearch: BookSearchService) { }
   ngOnInit() {
 
@@ -19,6 +20,12 @@ searchBooks(e){
   })
 
 }
+searchVideos(e){
+  let bookQuery= e.target.value;
+  this.BookSearch.searchBookList(bookQuery).subscribe(bookList =>{
+    this.bookList = bookList;
+  })
 
+}
 
 }

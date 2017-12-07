@@ -9,7 +9,7 @@ const BASEURL = `${DOMAIN}${PATH}`;
 
 
 @Injectable()
-export class BookSearchService {
+export class SearchService {
   options:Object = {
     withCredentials:true
   }
