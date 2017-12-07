@@ -130,33 +130,40 @@ router.post('/video/youtube/detail', (req,res,render) =>{
   })
 });
 
-router.post('/publication', (req, res, render) => {
+router.post('/publi', (req, res, render) => {
   const url = `https://api.microlink.io?url=${req.query.url}`;
-  const publication = new Publication({
-    title: req.body.title,
-    image: req.body.image.url,
-    author: req.body.publisher,
-    link: req.body.url,
-    category: "Publication"
+  request({url, json:true})
+    .then(function(json) {
+
+      const publication = new Publication({
+        title: json.data.title,
+        image: json.data.image.url,
+        author: json.data.publisher,
+        link: json.data.url,
+        category: "Publication"
+    })
+
+    Publication.findOne({ 'link': json.url }, (err, doc) => {
+      if (err) { return next(err) }
+      else if (doc) {
+        res.status(200).json({'message':'la publicacion ya existe'})
+        // aqui guardar relacion user/publicacion
+      }
+      else {
+        publication.save()
+        .then(answer => {
+          // aqui guardar relacion user/publicacion
+          res.status(200).json({'message':'publication guardada correctamente'})
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+    })
+
   })
 
-  Publication.findOne({ 'link': req.body.url }, (err, publication) => {
-    if (err) { return next(err) }
-    else if (publication) {
-      res.status(200).json({'message':'la publicacion ya existe'})
-      // aqui guardar relacion user/publicacion
-    }
-    else {
-      publication.save()
-      .then(answer => {
-        // aqui guardar relacion user/publicacion
-        res.status(200).json({'message':'publication guardada correctamente'})
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-  })
+  //
 });
 
 
