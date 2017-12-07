@@ -115,35 +115,53 @@ router.get('/video/youtube', (req, res, render) => {
      })
      res.status(200).json(videoResults)
    });
-})
+});
 
 router.post('/video/youtube/detail', (req,res,render) =>{
-  const publication = new Publication({
+  const newPublication = new Publication({
     title: req.body.title,
     image: req.body.image,
     link: req.body.link,
     createdAt: req.body.publishedAt,
     category: "Video"
   })
-
+//find one video and save
   Publication.findOne({ 'title': req.body.title }, (err, publication) => {
     if (err) { return next(err) }
-    else if (publication) {
-      res.status(200).json({'message':'la publicacion ya existe'})
-      // aqui guardar relacion user/publicacion
+      else if (publication) {
+        let newRelation = new Relational({
+          creator: req.user._id,
+          publication: publication._id,
+          comments: req.body.comments
+        });
+        newRelation.save()
+        .then(saved => {
+          res.status(200).json(saved)
+        });
     }
     else {
-      publication.save()
-      .then(answer => {
-        // aqui guardar relacion user/publicacion
-        res.status(200).json({'message':'publication guardada correctamente'})
-      })
+        newPublication.save()
+        .then(answer => {
+          let newRelation = new Relational({
+            creator: req.user._id,
+            publication: answer._id,
+            comments: req.body.comments || ''
+          });
+          newRelation.save()
+          .then(saved => {
+            res.status(200).json(saved)
+          })
+        })
       .catch(err => {
         console.log(err)
       })
-  }
+    }
   })
 });
+
+
+
+
 
 router.post('/publi', (req, res, render) => {
   const url = `https://api.microlink.io?url=${req.query.url}`;

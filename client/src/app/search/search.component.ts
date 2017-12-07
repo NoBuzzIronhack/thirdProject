@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {SearchService} from '../services/search.service'
+import {VideoSearchService} from '../services/video-search.service'
+import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-search',
@@ -9,23 +12,33 @@ import {SearchService} from '../services/search.service'
 export class SearchComponent implements OnInit {
   bookList = [];
   videoList= [];
-  constructor(public BookSearch: SearchService) { }
-  ngOnInit() {
+  myVideo="";
+  routeToShow:string;
+  constructor(public Search: SearchService, public VideoSearch: VideoSearchService, private route: ActivatedRoute, public sanitizer: DomSanitizer) { }
 
+  ngOnInit() {
+    this.route.url.subscribe(object => this.routeToShow = object[0].path);
+    console.log(this.route.url);
   }
 searchBooks(e){
   let bookQuery= e.target.value;
-  this.BookSearch.searchBookList(bookQuery).subscribe(bookList =>{
+  this.Search.searchBookList(bookQuery).subscribe(bookList =>{
     this.bookList = bookList;
   })
 
 }
 searchVideos(e){
-  let bookQuery= e.target.value;
-  this.BookSearch.searchBookList(bookQuery).subscribe(bookList =>{
-    this.bookList = bookList;
+  let VideoQuery= e.target.value;
+    this.VideoSearch.searchVideoList(VideoQuery).subscribe(videoList =>{
+    this.videoList = videoList.map(e =>{
+      e.embeded = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+e.link.substr(e.link.lastIndexOf('v=')+2, e.link.length));
+      return e;
+    })
   })
 
 }
-
+saveTheVideoPublication() {
+  this.VideoSearch.saveVideoPublication(this.myVideo)
+  .subscribe(video => console.log(video))
+}
 }
