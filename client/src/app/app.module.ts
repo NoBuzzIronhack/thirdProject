@@ -11,7 +11,7 @@ import { CategoryComponent } from './category/category.component';
 import { BookSearchComponent } from './book-search/book-search.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import {BookSearchService} from './services/book-search.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +27,7 @@ import { ProfileComponent } from './profile/profile.component';
     HttpModule,
     RouterModule.forRoot(myRoutes)
   ],
-  providers: [AuthService],
+  providers: [AuthService, BookSearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

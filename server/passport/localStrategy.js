@@ -9,7 +9,6 @@ passport.use(new LocalStrategy((username, password, next) => {
       next(err);
       return;
     }
-
     if (!foundUser) {
       next(null, false, { message: 'Incorrect username' });
       return;

@@ -1,2 +1,11 @@
 <h1>Pick your Book!</h1>
-<input type="text" name="search" placeholder="pick a book">
+<input (keyup)='searchBooks($event)' placeholder="pick a book">
+<div class="" *ngIf = "bookList">
+<div *ngFor = "let book of bookList">
+<a [routerLink]='["/book-detail/",book.link]' >
+  <p>{{book.title}}</p>
+  <p>by {{book.author}}</p>
+</a>
+
+</div>
+</div>

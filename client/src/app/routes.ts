@@ -7,7 +7,7 @@ import {ProfileComponent} from './profile/profile.component'
 const myRoutes: Routes =[
 {path: 'categories', component: CategoryComponent},
 {path: 'book-search', component: BookSearchComponent},
-// {path: 'book-detail', component: BookDetailComponent},
+{path: 'book-detail/:url', component: BookDetailComponent},
 // {path: 'profile', component: BookDetailComponent},
 
 //{path:'videos-search'},

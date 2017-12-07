@@ -1,5 +1,6 @@
 const express = require('express');
 const Publication = require('../models/Publication');
+const Relational = require('../models/Relational');
 const router = express.Router();
 const xray = require('x-ray');
 const x = xray();
@@ -18,39 +19,53 @@ router.get('/books/detail', (req, res, next) =>{
     let isbnTag = $('span[itemprop="isbn"]');
     let imageTag = $('#coverImage');
     let ratingTag = $('.average[itemprop="ratingValue"]')
-    let name = (nameTag[0].children[0].data).trim();
+    let title = (nameTag[0].children[0].data).trim();
     let author = authorTag[0].children[0].data;
-    let isbn = isbnTag[0].children[0].data;
+    let isbn = isbnTag[0].parent.prev.data.trim();
     let image= imageTag[0].attribs.src;
     let rating= ratingTag[0].children[0].data;
     let bookObj = {
-      name, author, isbn, image, rating
+      title, author, isbn, image, rating
     }
     res.status(200).json(bookObj);
   })
 })
 
 router.post('/books/detail', (req, res, next) => {
-  const publication = new Publication({
+  const newPublication = new Publication({
     title: req.body.title,
     image: req.body.image,
     author: req.body.author,
-    rating: req.body.rating,
-    link: "https://www.amazon.com/gp/product/" + req.body.link,
+    rating: req.body.rating || '',
+    link: "https://www.amazon.com/gp/product/" + req.body.isbn,
     category: "Book"
   })
 
   Publication.findOne({ 'title': req.body.title }, (err, publication) => {
     if (err) { return next(err) }
     else if (publication) {
-      res.status(200).json({'message':'la publicacion ya existe'})
-      // aqui guardar relacion user/publicacion
+      let newRelation = new Relational({
+        creator: req.user._id,
+        publication: publication._id,
+        comments: req.body.comments
+      });
+      newRelation.save()
+      .then(saved => {
+        res.status(200).json(saved)
+      })
     }
     else {
-      publication.save()
+      newPublication.save()
       .then(answer => {
-        // aqui guardar relacion user/publicacion
-        res.status(200).json({'message':'publication guardada correctamente'})
+        let newRelation = new Relational({
+          creator: req.user._id,
+          publication: answer._id,
+          comments: req.body.comments || ''
+        });
+        newRelation.save()
+        .then(saved => {
+          res.status(200).json(saved)
+        })
       })
       .catch(err => {
         console.log(err)

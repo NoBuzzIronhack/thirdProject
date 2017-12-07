@@ -1,5 +1,6 @@
 const passport = require('passport');
 const User = require('../models/User');
+
 passport.serializeUser((loggedInUser, cb) => {
   cb(null, loggedInUser._id);
 });
@@ -10,7 +11,6 @@ passport.deserializeUser((userIdFromSession, cb) => {
       cb(err);
       return;
     }
-
     cb(null, userDocument);
   });
 });

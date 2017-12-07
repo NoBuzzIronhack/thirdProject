@@ -1,4 +1,13 @@
 <p>
   book-detail works!
 </p>
-<!-- <a [routerLink]= "['/book-detail', book-detail._id]">Book Details</a> -->
+<div class="" *ngIf='!myBook'>
+  Cargando...
+</div>
+<div *ngIf="myBook" class= "">
+  <h1>{{ myBook.title }}</h1>
+  <img src="{{ myBook.image }}" alt="">  <br>
+  <p>{{ myBook.author }}</p>
+  <a href="https://www.amazon.com/gp/product/{{myBook.isbn}}" target="_blank">Buy on Amazon</a>
+  <button type="button" (click)='saveThePublication()'>Add to my profile</button>
+</div>
