@@ -11,9 +11,10 @@ const id = req.user._id;
   .find({creator: id })
   .populate('publication')
   .exec((err, relation) => {
-    console.log(relation)
     res.status(200).json(relation)
   })
 })
+
+
 
 module.exports = router;

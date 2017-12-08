@@ -1,3 +1,22 @@
-<p>
-  profile works!
-</p>
+
+<h1>My Publications</h1>
+<br>
+<div class="publications">
+<ul>
+  <li *ngFor = "let publication of myPublications" class = "">
+  {{publication.publication.title}}
+  <br>
+    <br>
+    <div *ngIf='publication.publication.new == "youtube"'>
+      <iframe width="560" height="315" [src]="publication.publication.link" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen *ngIf= "publication.publication.link"></iframe>
+    </div>
+    <!-- <img [src]="publication.publication.image"> -->
+    <p>{{publication.publication.link}}</p>
+
+
+  <br>
+  <!-- <img src="{{publication.image}}" alt=""> -->
+  <br>
+</li>
+</ul>
+</div>

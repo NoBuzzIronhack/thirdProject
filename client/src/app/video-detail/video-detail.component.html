@@ -4,7 +4,7 @@
 <div class="" *ngIf='!myVideo'>
   Cargando...
 </div>
-<div *ngIf="myVideo" class= "">
+<div *ngIf="myVideo">
   <h1>{{ myVideo.title }}</h1>
   <img src="{{ myVideo.image }}" alt="">  <br>
   <button type="button" (click)='saveThePublication()'>Add to my profile</button>

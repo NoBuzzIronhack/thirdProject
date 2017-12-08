@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { SearchService } from '../services/search.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { SearchService } from '../services/search.service';
 export class BookDetailComponent implements OnInit {
   myBook;
 
-  constructor(public route: ActivatedRoute, public BookSearch: SearchService) { }
+  constructor(public route: ActivatedRoute, public BookSearch: SearchService, public router: Router) { }
   ngOnInit() {
     this.route.params.subscribe(params => {
     this.BookSearch.getBookDetail(params['url']).subscribe(bookDetail => {
@@ -21,6 +21,10 @@ export class BookDetailComponent implements OnInit {
 
 saveThePublication() {
   this.BookSearch.saveBookPublication(this.myBook)
-  .subscribe(response => console.log(response))
+  .subscribe(response =>{
+    this.router.navigate(['/profile']);
+  });
 }
 }
+
+  // this.router.navigate(['/profile']);

@@ -126,6 +126,7 @@ router.get('/video/youtube', (req, res, render) => {
 });
 
 router.post('/video/youtube/detail', (req,res,render) =>{
+
   const newPublication = new Publication({
     title: req.body.title,
     image: req.body.image,

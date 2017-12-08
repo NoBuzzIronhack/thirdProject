@@ -26,7 +26,7 @@ import { ProfileService } from './services/profile.service';
     SearchComponent,
     BookDetailComponent,
     ProfileComponent,
-    VideoDetailComponent
+    VideoDetailComponent,
     SearchUrlComponent
     ],
   imports: [

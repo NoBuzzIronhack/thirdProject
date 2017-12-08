@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SearchService} from '../services/search.service'
 import {VideoSearchService} from '../services/video-search.service'
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -12,9 +12,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class SearchComponent implements OnInit {
   bookList = [];
   videoList= [];
-  myVideo="";
+  myVideo;
   routeToShow:string;
-  constructor(public Search: SearchService, public VideoSearch: VideoSearchService, private route: ActivatedRoute, public sanitizer: DomSanitizer) { }
+  constructor(public Search: SearchService, public VideoSearch: VideoSearchService, private route: ActivatedRoute, public sanitizer: DomSanitizer, public router: Router) { }
 
   ngOnInit() {
     this.route.url.subscribe(object => this.routeToShow = object[0].path);
@@ -37,8 +37,10 @@ searchVideos(e){
   })
 
 }
-saveTheVideoPublication() {
-  this.VideoSearch.saveVideoPublication(this.myVideo)
-  .subscribe(video => console.log(video))
+saveTheVideoPublication(video) {
+  this.VideoSearch.saveVideoPublication(video)
+  .subscribe(video => {
+    this.router.navigate(['/profile']);
+  });
 }
 }
