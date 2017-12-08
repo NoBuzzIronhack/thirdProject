@@ -7,5 +7,8 @@
   <h1>{{ myPubli.title }}</h1>
   <img src="{{ myPubli.image }}" alt="">  <br>
   <a href="{{myPubli.link}}" target="_blank">See on {{ myPubli.author }}</a>
+  <label>Comment</label>
+  <!-- No se como guardar los comentarios!! Porque el modelo que tiene comentarios es el Relational... Entonces??? -->
+  <input type="text" [(ngModel)]="comment" placeholder="Comment something!" >
   <button type="button" (click)='savePubli()'>Add to my profile</button>
 </div>

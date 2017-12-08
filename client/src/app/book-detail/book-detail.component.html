@@ -9,5 +9,8 @@
   <img src="{{ myBook.image }}" alt="">  <br>
   <p>{{ myBook.author }}</p>
   <a href="https://www.amazon.com/gp/product/{{myBook.isbn}}" target="_blank">Buy on Amazon</a>
+  <label>Comment</label>
+  <!-- No se como guardar los comentarios!! Porque el modelo que tiene comentarios es el Relational... Entonces??? -->
+  <input type="text" [(ngModel)]="comment" placeholder="Comment something!" >
   <button type="button" (click)='saveThePublication()'>Add to my profile</button>
 </div>

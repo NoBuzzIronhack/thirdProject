@@ -13,7 +13,8 @@ const publicationSchema = new Schema({
   source: String,
   createdAt: Date,
   category: { type:String, enum: TYPES, required: true },
-  tags: { type:String, enum:TAGS }
+  tags: { type:String, enum:TAGS },
+  comment: String
 }, {
   timestamps: {
     createdAt: 'created_at',

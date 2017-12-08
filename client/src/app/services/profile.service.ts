@@ -18,14 +18,12 @@ export class ProfileService {
       return this.http.get(`${BASEURL}`, this.options)
                       .map(res => res.json());
     }
+    getPostsList():Observable<any>{
+      return this.http.get(`${BASEURL}/post`, this.options)
+                      .map(res => res.json());
+    }
+    getLikesList():Observable<any>{
+      return this.http.get(`${BASEURL}/like`, this.options)
+                      .map(res => res.json());
+    }
 }
-//     getBookDetail(url):Observable<any>{
-//     return this.http.get(`${BASEURL}/detail/?url=${url}`, this.options)
-//       .map(res =>res.json());
-//     }
-//
-//     saveBookPublication(book) {
-//       return this.http.post(`${BASEURL}/detail/`, book, this.options)
-//       .map(res =>res.json());
-//     }
-// }

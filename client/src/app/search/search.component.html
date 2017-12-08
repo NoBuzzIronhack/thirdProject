@@ -6,6 +6,9 @@
     <p>{{video.title}}</p>
     <iframe width="560" height="315" [src]="video.embeded" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen *ngIf= "video.embeded"></iframe>
     <br>
+    <label>Comment</label>
+    <!-- No se como guardar los comentarios!! Porque el modelo que tiene comentarios es el Relational... Entonces??? -->
+    <input type="text" [(ngModel)]="comment" placeholder="Comment something!" >
       <button type="button" (click)='saveTheVideoPublication()'>Add to my profile</button>
   </div>
   </div>
@@ -17,8 +20,8 @@
   <div class="" *ngIf = "bookList">
   <div *ngFor = "let book of bookList">
   <a [routerLink]='["/book-detail/",book.link]' >
-    <p>{{book.title}}</p>
-    <p>by {{book.author}}</p>
+    <img [src]="book.image">
+    <p>{{book.title}} by: {{book.author}}</p>
   </a>
   </div>
   </div>

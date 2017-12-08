@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 import { SearchService } from '../services/search.service';
+import { ActivatedRoute, Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-book-detail',
@@ -10,7 +11,7 @@ import { SearchService } from '../services/search.service';
 export class BookDetailComponent implements OnInit {
   myBook;
 
-  constructor(public route: ActivatedRoute, public BookSearch: SearchService) { }
+  constructor(public route: ActivatedRoute, private router: Router,public BookSearch: SearchService) { }
   ngOnInit() {
     this.route.params.subscribe(params => {
     this.BookSearch.getBookDetail(params['url']).subscribe(bookDetail => {
@@ -21,6 +22,8 @@ export class BookDetailComponent implements OnInit {
 
 saveThePublication() {
   this.BookSearch.saveBookPublication(this.myBook)
-  .subscribe(response => console.log(response))
+  .subscribe(response =>
+    this.router.navigate(['/profile']));
+
 }
 }
