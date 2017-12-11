@@ -17,6 +17,7 @@ import {VideoSearchService} from './services/video-search.service';
 import { SearchUrlComponent } from './search-url/search-url.component'
 import { searchUrlService } from './services/searchUrl.service';
 import { ProfileService } from './services/profile.service';
+import { UserSearchComponent } from './user-search/user-search.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ProfileService } from './services/profile.service';
     BookDetailComponent,
     ProfileComponent,
     VideoDetailComponent,
-    SearchUrlComponent
+    SearchUrlComponent,
+    UserSearchComponent,
     ],
   imports: [
     BrowserModule,

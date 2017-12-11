@@ -1,5 +1,6 @@
 
 <h1>Paste any URL!</h1>
+  <a [routerLink]="['/category']">Back to categories</a> 
 <input placeholder="paste any URL" [(ngModel)]="queryPublic">
 <button (click)='searchPubli()' name="button">Search</button>
 
@@ -8,4 +9,5 @@
   <img src="{{ myPubli.image }}" alt="">  <br>
   <a href="{{myPubli.link}}" target="_blank">See on {{ myPubli.author }}</a>
   <button type="button" (click)='savePubli()'>Add to my profile</button>
+
 </div>

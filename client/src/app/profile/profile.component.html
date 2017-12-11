@@ -1,10 +1,15 @@
 
 <h1>My Publications</h1>
 <br>
+<a [routerLink]="['/category']">Back to search</a>
 <div class="publications">
 <ul>
   <li *ngFor = "let publication of myPublications" class = "">
   {{publication.publication.title}}
+  <br>
+  {{publication.publication.author}}
+  <br>
+  <img src="{{publication.publication.image}}" alt="">
   <br>
     <br>
     <div *ngIf='publication.publication.new == "youtube"'>
@@ -12,6 +17,7 @@
     </div>
     <!-- <img [src]="publication.publication.image"> -->
     <p>{{publication.publication.link}}</p>
+
 
 
   <br>

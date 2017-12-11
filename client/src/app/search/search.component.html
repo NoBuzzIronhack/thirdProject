@@ -1,5 +1,7 @@
 <div *ngIf='routeToShow == "video-search"'>
   <h1>Pick your Video!</h1>
+  <br>
+  <a [routerLink]="['/category']">Back to categories</a>
   <input (keyup)='searchVideos($event)' placeholder="pick a video">
   <div class="" *ngIf = "videoList.length>0">
   <div *ngFor = "let video of videoList">
@@ -14,6 +16,8 @@
 </div>
 <div *ngIf='routeToShow == "book-search"'>
   <h1>Pick your Book!</h1>
+  <br>
+  <a [routerLink]="['/category']">Back to categories</a>
   <input (keyup)='searchBooks($event)' placeholder="pick a book">
   <div class="" *ngIf = "bookList">
   <div *ngFor = "let book of bookList">

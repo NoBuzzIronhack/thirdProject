@@ -6,7 +6,7 @@ const TAGS = require('./publication-tags')
 const publicationSchema = new Schema({
   title: { type: String, required: true },
   author: String,
-  image: { type: String, required: true },
+  image: String,
   rating: Number,
   views: Number,
   link: { type: String, required: true },
