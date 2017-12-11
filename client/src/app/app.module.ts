@@ -28,8 +28,12 @@ import { UserSearchComponent } from './user-search/user-search.component';
     BookDetailComponent,
     ProfileComponent,
     VideoDetailComponent,
+<<<<<<< HEAD
     SearchUrlComponent,
     UserSearchComponent,
+=======
+    SearchUrlComponent
+>>>>>>> 856ec4ff3c61d6d15fb9aeff3b7ddeff16870a3e
     ],
   imports: [
     BrowserModule,
