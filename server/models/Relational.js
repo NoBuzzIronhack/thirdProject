@@ -5,6 +5,7 @@ const relationalSchema = new Schema({
   creator: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   publication: { type: Schema.Types.ObjectId, ref: 'Publication', required: true },
   comments: String,
+  post: {type: Boolean, default: true}
 }, {
   timestamps: {
     createdAt: 'created_at',

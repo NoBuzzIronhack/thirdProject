@@ -66,7 +66,8 @@ router.post('/books/detail', (req, res, next) => {
           let newRelation = new Relational({
             creator: req.user._id,
             publication: answer._id,
-            comments: req.body.comments || ''
+            comments: req.body.comments || '',
+            post: true
           });
           newRelation.save()
             .then(saved => {
@@ -139,7 +140,8 @@ router.post('/video/youtube/detail', (req,res,render) =>{
         let newRelation = new Relational({
           creator: req.user._id,
           publication: publication._id,
-          comments: req.body.comments
+          comments: req.body.comments || '',,
+          post: true
         });
         newRelation.save()
         .then(saved => {
@@ -152,7 +154,8 @@ router.post('/video/youtube/detail', (req,res,render) =>{
           let newRelation = new Relational({
             creator: req.user._id,
             publication: answer._id,
-            comments: req.body.comments || ''
+            comments: req.body.comments || '',
+            post: true
           });
           newRelation.save()
           .then(saved => {
@@ -198,7 +201,8 @@ router.post('/publi', (req, res, next) => {
           let newRelation = new Relational({
             creator: req.user._id,
             publication: doc._id,
-            comments: req.body.comments || ''
+            comments: req.body.comments || '',
+            post: true
           });
           newRelation.save()
           .then(saved => {
@@ -210,7 +214,8 @@ router.post('/publi', (req, res, next) => {
             let newRelation = new Relational({
               creator: req.user._id,
               publication: answer._id,
-              comments: req.body.comments || ''
+              comments: req.body.comments || '',
+              post: true
             });
             newRelation.save()
               .then(saved => {
